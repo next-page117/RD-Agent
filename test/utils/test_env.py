@@ -41,7 +41,7 @@ class EnvUtils(unittest.TestCase):
     # NOTE: Because you need to download the data during the prepare process. So you need to have pyqlib in your environment.
     def test_local(self):
         local_conf = LocalConf(
-            bin_path="/home/v-linlanglv/miniconda3/envs/RD-Agent-310/bin",
+            bin_path="/home/nero/workspace/quant/RD-Agent/.conda/bin",
             default_entry="qrun conf.yaml",
         )
         qle = QlibLocalEnv(conf=local_conf)
@@ -52,7 +52,7 @@ class EnvUtils(unittest.TestCase):
         self.assertTrue(mlrun_p.exists(), f"Expected output file {mlrun_p} not found")
 
     def test_local_simple(self):
-        local_conf = LocalConf(bin_path="/home/xiaoyang/miniconda3/bin/", default_entry="which python")
+        local_conf = LocalConf(bin_path="/home/nero/workspace/quant/RD-Agent/.conda/bin/", default_entry="which python")
         le = LocalEnv(conf=local_conf)
         print(local_conf)
         le.prepare()
@@ -122,7 +122,8 @@ class EnvUtils(unittest.TestCase):
         assert return_code == 124, "Expected return code 124 for timeout"
 
     def test_docker_mem(self):
-        cmd = 'python -c \'print("start"); import numpy as np;  size_mb = 500; size = size_mb * 1024 * 1024 // 8; array = np.random.randn(size).astype(np.float64); print("success")\''
+        # 使用双引号包围整个命令，内部字符串使用转义的双引号
+        cmd = 'python -c "print(\\"start\\"); import numpy as np; size_mb = 500; size = size_mb * 1024 * 1024 // 8; array = np.random.randn(size).astype(np.float64); print(\\"success\\")"'
 
         qtde = QTDockerEnv(QlibDockerConf(mem_limit="10m"))
         qtde.prepare()

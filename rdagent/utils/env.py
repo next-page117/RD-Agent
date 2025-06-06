@@ -259,7 +259,7 @@ class Env(Generic[ASpecificEnvConf]):
         key = md5_hash(
             json.dumps(
                 [
-                    [str(path.relative_to(Path(local_path))), path.read_text()]
+                    [str(path.relative_to(Path(local_path))), path.read_text(encoding='utf-8', errors='ignore')]
                     for path in sorted(Path(local_path).rglob("*.py"))
                 ]
             )
@@ -516,7 +516,7 @@ class DockerConf(EnvConf):
 
 
 class QlibCondaConf(CondaConf):
-    conda_env_name: str = "rdagent4qlib"
+    conda_env_name: str = "/home/nero/workspace/quant/RD-Agent/.conda"
     enable_cache: bool = False
     default_entry: str = "qrun conf.yaml"
     # extra_volumes: dict = {str(Path("~/.qlib/").expanduser().resolve().absolute()): "/root/.qlib/"}
