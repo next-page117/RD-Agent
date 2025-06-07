@@ -343,7 +343,7 @@ class Env(Generic[ASpecificEnvConf]):
 
 
 class LocalConf(EnvConf):
-    bin_path: str = ""
+    bin_path: str = "/home/nero/workspace/quant/RD-Agent/.conda/bin"
     """path like <path1>:<path2>:<path3>, which will be prepend to bin path."""
 
     retry_count: int = 0  # retry count for; run `retry_count + 1` times

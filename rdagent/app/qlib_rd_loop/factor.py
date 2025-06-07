@@ -25,7 +25,7 @@ class FactorRDLoop(RDLoop):
         return exp
 
 
-def main(path=None, step_n=None):
+def main(path=None, step_n=1, loop_n=1):
     """
     Auto R&D Evolving loop for fintech factors.
 
@@ -33,14 +33,14 @@ def main(path=None, step_n=None):
 
     .. code-block:: python
 
-        dotenv run -- python rdagent/app/qlib_rd_loop/factor.py $LOG_PATH/__session__/1/0_propose  --step_n 1   # `step_n` is a optional paramter
+        dotenv run -- python rdagent/app/qlib_rd_loop/factor.py $LOG_PATH/__session__/1/0_propose  --step_n 1 --loop_n 5
 
     """
     if path is None:
         model_loop = FactorRDLoop(FACTOR_PROP_SETTING)
     else:
         model_loop = FactorRDLoop.load(path)
-    model_loop.run(step_n=step_n)
+    model_loop.run(step_n=step_n, loop_n=loop_n)
 
 
 if __name__ == "__main__":
